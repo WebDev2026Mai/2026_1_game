@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/static/app.css">
-</head>
-<body>
-    <header><nav>
-
+    <link rel="stylesheet" href="/static/app.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
         <a href="/">Home</a>
+        {% if not user %}
         <a href="/signup">Signup</a>
-
-    {% if not user %}
         <a href="/login">Login</a>
-    {% else %}
+        {% else %}
+        <a href="/profile">Profile</a>
         <a href="/logout">Logout</a>
-    {% endif %}
- 
-    </nav></header>
+        {% endif %}
+      </nav>
+    </header>
     <div id="tooltip"></div>
+

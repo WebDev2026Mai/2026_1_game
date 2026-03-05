@@ -1,5 +1,5 @@
-from flask import request, make_response
-import mysql.connector
+from flask import request, make_response    # type: ignore
+import mysql.connector                      # type: ignore
 import re # Regular expressions also called Regex
 from functools import wraps
 

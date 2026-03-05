@@ -1,12 +1,12 @@
-from flask import Flask, render_template, request, jsonify, session, redirect
+from flask import Flask, render_template, request, jsonify, session, redirect    # type: ignore
 import x
 import uuid
 import time
 from flask_session import Session
-from werkzeug.security import generate_password_hash
-from werkzeug.security import check_password_hash
+from werkzeug.security import generate_password_hash # type: ignore
+from werkzeug.security import check_password_hash    # type: ignore
 
-from icecream import ic
+from icecream import ic                              # type: ignore
 ic.configureOutput(prefix=f'~~~~~~~~~~~~~~~~~~~~~~~~ | ', includeContext=True)
 
 app = Flask(__name__)
@@ -15,14 +15,25 @@ app.config['SESSION_TYPE'] = 'filesystem'
 Session(app)
 
 ################################################################################################
+@app.get("/")
+@x.no_cache
+def show_index():
+    try:
+        user = session.get("user","")
+        return render_template("page_index.html",user=user, x=x)
+    except Exception as ex:
+        ic(ex)
+        return ("ups ...")
 
+################################################################################################
 @app.get("/signup")
 @x.no_cache
 def show_signup():
     try:
         user = session.get("user","")
-
-        return render_template("page_signup.html", user = user, x=x)
+        if not user: 
+            return render_template("page_signup.html", user=user, x=x)
+        return redirect("/profile")
     except Exception as ex:
         ic(ex)
         return ("ups ...")
@@ -35,56 +46,55 @@ def api_create_user():
         user_first_name = x.validate_user_first_name()
         user_last_name = x.validate_user_last_name()
         user_email = x.validate_user_email()
-
         user_password = x.validate_user_password()
         user_hashed_password = generate_password_hash(user_password)
-        #ic(user_hashed_password) # 'scrypt:32768:8:1$29AUFPM6R1nkuVaO$0c5a69c1d7cf8a378aad866c2129a13a6e49c3bcbdd936c56a1186ca8fcd35977946d34a28f418d00bf4f8ada9fdedbbcf47becea398dc92ef5af07d7b77910d'
+        # ic(user_hashed_password) # 'scrypt:32768:8:1$V0NLEqHQsgKyjyA7$3a9f6420e4e9fa7a4e4ce6c89927e7dcb532e5f557aee6309277243e5882cc4518c94bfd629b61672553362615cd5d668f62eedfe4905620a8c9bb7db573de31'
 
         user_pk = uuid.uuid4().hex
-        user_created_at = int(time.time()) #this will give me the EPOCH, without int it would be an EPOCH with micro seconds which isn't nessecary 
+        user_created_at = int(time.time())
 
-        db,cursor =x.db()
-        q = "INSERT INTO users VALUES (%s, %s, %s, %s, %s, %s);"
+        db, cursor = x.db()
+        q = "INSERT INTO users VALUES(%s, %s, %s, %s, %s, %s)"
         cursor.execute(q, (user_pk, user_first_name, user_last_name, user_email, user_hashed_password, user_created_at))
         db.commit()
 
         form_signup = render_template("___form_signup.html", x=x)
 
-        return """
-        <browser mix-replace="#form_signup">{form_signup}</browser>
-        <browser mix-redirect="/login"></browser>"""
+        return f"""
+            <browser mix-replace="#form_signup">{form_signup}</browser>
+            <browser mix-redirect="/login"></browser>
+        """
     
     except Exception as ex:
         ic(ex)
+        if "company_exception user_first_name" in str(ex):
+            error_message = f"user first name {x.USER_FIRST_NAME_MIN} to {x.USER_FIRST_NAME_MAX} characters"
+            ___tip = render_template("___tip.html", status="error", message=error_message)
+            return f"""<browser mix-before-begin="#tooltip">{___tip}</browser>""", 400
 
-        if "company_exception in user_first_name" in str(ex):
-            error_message = f"user firstname {x.USER_FIRST_NAME_MIN} to {x.USER_FIRST_NAME_MAX} characters"
+        if "company_exception user_last_name" in str(ex):
+            error_message = f"user last name {x.USER_LAST_NAME_MIN} to {x.USER_LAST_NAME_MAX} characters"
             ___tip = render_template("___tip.html", status="error", message=error_message)
             return f"""<browser mix-after-begin="#tooltip">{___tip}</browser>""", 400
-        
-        if "company_exception in user_last_name" in str(ex):
-            error_message = f"user lastname {x.USER_LAST_NAME_MIN} to {x.USER_LAST_NAME_MAX} characters"
-            ___tip = render_template("___tip.html", status="error", message=error_message)
-            return f"""<browser mix-after-begin="#tooltip">{___tip}</browser>""", 400
-        
-        if "company_exception in user_email" in str(ex):
+
+        if "company_exception user_email" in str(ex):
             error_message = f"user email invalid"
             ___tip = render_template("___tip.html", status="error", message=error_message)
             return f"""<browser mix-after-begin="#tooltip">{___tip}</browser>""", 400
-        
-        if "company_exception in user_password" in str(ex):
+
+        if "company_exception user_password" in str(ex):
             error_message = f"user password {x.USER_PASSWORD_MIN} to {x.USER_PASSWORD_MAX} characters"
             ___tip = render_template("___tip.html", status="error", message=error_message)
             return f"""<browser mix-after-begin="#tooltip">{___tip}</browser>""", 400
 
         if "Duplicate entry" in str(ex) and "user_email" in str(ex):
-            error_message = "email already exists"
+            error_message = "Email already exists"
             ___tip = render_template("___tip.html", status="error", message=error_message)
             return f"""<browser mix-after-begin="#tooltip">{___tip}</browser>""", 400
-        
-        #Worst case scenarios
-        error_message = "system under maintenance"
-        ___tip = render_template("___tip.html", status="error", message=error_message)
+
+        # Worst case
+        error_message = "System under maintenance"
+        ___tip = render_template("___tip.html", status="error", message=error_message)        
         return f"""<browser mix-after-begin="#tooltip">{___tip}</browser>""", 500
     
     finally:
@@ -97,14 +107,14 @@ def api_create_user():
 @x.no_cache
 def show_login():
     try:
-        user = session.get("user","")
-
-        if not user: return render_template("page_login.html", user = user, x=x)
-        return render_template("page_profile.html")
-
+        user = session.get("user", "")
+        if not user: 
+            return render_template("page_login.html", user=user, x=x)
+        return redirect("/profile")
+    
     except Exception as ex:
         ic(ex)
-        return ("ups ...")
+        return "ups"
     
 ################################################################################################
 @app.post("/api-login")
