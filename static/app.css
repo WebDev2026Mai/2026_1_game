@@ -4,12 +4,26 @@
     box-sizing: border-box;
 }
 body{
-    width: 100%;
-    height: 100vh;
-}
+    display: grid;
+    grid-template-columns: minmax(2rem, 2fr) minmax(0, 1200px) minmax(2rem, 2fr);
 
+    >* {
+        grid-column: 2;
+    }
+}
+form {
+display: grid;
+
+    label {
+    
+        span {
+            color:rgb(139, 138, 138);
+        }
+    }
+}
 #tooltip{
     position: fixed; top: 3rem; left: 0;
+    pointer-events: none;
     z-index: 10;
     width: 100%;
     display: flex;
@@ -26,10 +40,10 @@ body{
     }    
 }
 
-
 nav{
     width: 100%;
     height: 3rem;
+    padding-inline: 1rem;
     background-color: gray;
     display: flex;
     justify-content: space-between;
@@ -54,12 +68,9 @@ nav{
     }
 }
 
-
 .user{
     padding: 1rem;
 }
-
-
 
 footer{
     position: fixed;
