@@ -1,0 +1,17 @@
+
+{% include "_header.html" %}
+<main>
+<form mix-post="/api-login" autocomplete="off">
+    <div>
+        <label> Email </label>
+        <input type="text" aria-label="email"          placeholder="user email"     name="user_email"       mix-validate="{{x.REGEX_USER_EMAIL}}">
+    </div>
+    <div>
+        <label> Password <span> {{x.USER_PASSWORD_MIN}} to {{x.USER_PASSWORD_MAX}} characters</span> </label>
+        <input type="text" aria-label="user password"  placeholder="user password"  name="user_password"    mix-validate="{{x.REGEX_USER_PASSWORD}}">
+    </div>
+    <button>Login</button>
+</form>
+</main>
+
+{% include "_footer.html" %}
