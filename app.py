@@ -129,17 +129,17 @@ def api_login():
         cursor.execute(q,(user_email,))
         user = cursor.fetchone()
         if not user:
-            error_message = "Invalid credentials 1"
+            error_message = "Invalid credentials"
             ___tip = render_template("___tip.html", status="error", message=error_message)
             return f"""<browser mix-after-begin="#tooltip">{___tip}</browser>""", 400
         
         if not check_password_hash(user["user_password"], user_password):
-            error_message = "Invalid credentials 2"
+            error_message = "Invalid credentials"
             ___tip = render_template("___tip.html", status="error", message=error_message)
             return f"""<browser mix-after-begin="#tooltip">{___tip}</browser>""", 400
         
         if not check_password_hash(user["user_password"], user_password):
-            error_message = "Invalid credentials 2"
+            error_message = "Invalid credentials"
             ___tip = render_template("___tip.html", status="error", message=error_message)
             return f"""<browser mix-after-begin="#tooltip">{___tip}</browser>""", 400
         

@@ -39,7 +39,9 @@ const css = `
     opacity: 0;
 } 
 .mix-error{
-    background-color: rgba(230,130,130, 0.5);
+    border-radius:0.2rem;
+    background-color: #fceeee;
+    border:solid 2px #E53935;
 }
 .mix-fade-in-1000{ animation: mix-fade-in 1000ms forwards; }
 .mix-fade-in-2000{ animation: mix-fade-in 2000ms forwards; }
