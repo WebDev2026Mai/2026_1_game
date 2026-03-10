@@ -1,0 +1,34 @@
+
+{% include "_header.html" %}
+<main>
+    <h1>Update Travel</h1>
+
+    <form mix-post="/api-create-travel" autocomplete="off" id="form_create_travel">
+    <div>
+        <label> Title <span> {{x.TRAVEL_TITLE_MIN}} to {{x.TRAVEL_TITLE_MAX}} characters</span> </label>
+        <input value="aaa" type="text" aria-label="travel title" placeholder="Travel title" id="travel_title" name="travel_title"  mix-validate="{{x.REGEX_TRAVEL_TITLE}}" >
+    </div>
+    <div>
+        <label> Date from<span> {{x.REGEX_TRAVEL_DATE_FROM}}</span> </label>
+        <input type="datetime-local" aria-label="travel date from"  id="travel_date_from"  name="travel_date_from" mix-validate="{{x.REGEX_TRAVEL_DATE_FROM}}">
+    </div>
+    <div>
+        <label> Date to <span> {{x.REGEX_TRAVEL_DATE_TO}}</span> </label>
+        <input  type="datetime-local" aria-label="travel date to"     id="travel_date_to"     name="travel_date_to"      mix-validate="{{x.REGEX_TRAVEL_DATE_TO}}">
+    </div>
+    <div>
+        <label> Description <span>{{x.TRAVEL_LOCATION_MIN}} to {{x.TRAVEL_LOCATION_MAX}} characters</span> </label>
+        <input  value="aaaa" type="text" aria-label="travel description"  placeholder="Travel description"  id="travel_description"   name="travel_description" mix-validate="{{x.REGEX_TRAVEL_DESCRIPTTION}}">
+    </div>
+    <div>
+        <label> Location <span> {{x.TRAVEL_COUNTRY_MIN}} to {{x.TRAVEL_COUNTRY_MAX}} characters</span> </label>
+        <input value="aaaa" type="text" aria-label="travel location"  placeholder="Travel location"  id="travel_location"   name="travel_location"    mix-validate="{{x.REGEX_TRAVEL_LOCATION}}">
+    </div>
+    <div>
+        <label> Country <span> {{x.TRAVEL_DESCRIPTTION_MIN}} to {{x.TRAVEL_DESCRIPTTION_MAX}} characters</span> </label>
+        <input value="aaaa" type="text" aria-label="travel country"  placeholder="Travel country"  id="travel_country"   name="travel_country"    mix-validate="{{x.REGEX_TRAVEL_COUNTRY}}">
+    </div>
+    <button id="createtravel">CREATE</button>
+</form>
+</main>
+{% include "_footer.html" %}

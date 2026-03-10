@@ -122,15 +122,13 @@ def validate_travel_date_from():
 #################################################################################
 
 def validate_travel_date_to():
-    from app import app  
-    
     TRAVEL_DATE_TO_MIN = int(time.time()) 
     TRAVEL_DATE_TO_MAX = int((datetime.now() + timedelta(days=90)).replace(hour=23, minute=59, second=59, microsecond=0).timestamp())
     travel_date_to = request.form.get("travel_date_to", "")
     dt = datetime.strptime(travel_date_to, "%Y-%m-%dT%H:%M")
     travel_date_to_epoch = int(dt.timestamp())   
 
-    app.logger.info('TRAVEL_DATE_TO_MIN:%s, travel_date_to:%d,travel_date_to_epoch:%s , TRAVEL_DATE_TO_MAX:%s ', TRAVEL_DATE_TO_MIN, travel_date_to,travel_date_to_epoch, TRAVEL_DATE_TO_MAX)
+    
     
     if not re.match(REGEX_DATE,travel_date_to):
             raise Exception("company_exception in travel_date_to")

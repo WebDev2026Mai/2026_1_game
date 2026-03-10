@@ -112,28 +112,7 @@ nav {
     gap: 1rem;
     width: 200px;
     height: 100%;
-
-    .button{
-      max-width: 100px;
-      height: 30px;
-
-      border-radius:var( --border-radius);
-      background-color: var(--grey-bg);
-
-      display: grid;
-      justify-content: center;
-      align-items: center;
-    }
-    .button:hover{
-      background-color: var(--dark-grey-bg);
-      border: var(--border-lighter) var(--black);
-    }
   }
-  
-    a {
-      color: var(--white);
-      text-decoration: none;
-    }
   
 }
 #travel_list {
@@ -160,8 +139,30 @@ nav {
   }
 }
 }
+.button{
+      max-width: 100px;
+      height: 30px;
+
+      border-radius:var( --border-radius);
+      background-color: var(--grey-bg);
+
+      display: grid;
+      justify-content: center;
+      align-items: center;
+    }
+    .button:hover{
+      background-color: var(--dark-grey-bg);
+      border: var(--border-lighter) var(--black);
+    }
+    a {
+      color: var(--white);
+      text-decoration: none;
+    }
 
 footer {
   height: 3rem;
   background-color: var(--grey-bg);
 }
+
+
+

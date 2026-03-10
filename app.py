@@ -22,12 +22,25 @@ Session(app)
 @app.get("/")
 @x.no_cache
 def show_index():
+    from app import app 
     try:
         user = session.get("user","")
-        return render_template("page_index.html",user=user, x=x)
+
+        db, cursor = x.db()
+        q = "SELECT * FROM travels"
+
+        cursor.execute(q)
+        travels = cursor.fetchall()
+        app.logger.info('travels:%s',travels)
+        return render_template("page_index.html",user=user, x=x, travels=travels)
+    
     except Exception as ex:
         ic(ex)
         return ("ups ...")
+    
+    finally:
+        if "cursor" in locals(): cursor.close()
+        if "db" in locals(): db.close()
 
 ################################################################################################
 @app.get("/signup")
@@ -85,6 +98,16 @@ def show_logout():
 def show_createtravel():
     try:
         return render_template("page_createtravel.html", x=x)
+    except Exception as ex:
+        ic(ex)
+        return ("ups ...")
+    
+################################################################################################
+
+@app.get("/updatetravel")
+def show_updatetravel():
+    try:
+        return render_template("page_updatetravel.html", x=x)
     except Exception as ex:
         ic(ex)
         return ("ups ...")
