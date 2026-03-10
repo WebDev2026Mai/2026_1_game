@@ -1,3 +1,21 @@
+:root{
+  --border-radius: 0.2rem;
+  --green-bg:rgb(212, 255, 212);
+  --red-bg:#fceeee;
+  --grey-bg: grey;
+  --dark-grey-bg: rgb(102, 102, 102);
+
+  --white:rgb(238, 238, 238);
+  --black:rgb(26, 25, 25);
+
+  --red-outline:#E53935;
+  --green-outline:rgb(73, 148, 73);
+
+  --border-lighter:solid 0.15rem;
+  --border:solid 2px;
+}
+
+
 * {
   margin: 0;
   padding: 0;
@@ -7,6 +25,15 @@
 body {
   display: grid;
   grid-template-columns: minmax(2rem, 2fr) minmax(0, 1200px) minmax(2rem, 2fr);
+  
+  main{
+    padding-block: 2rem;
+    display: grid;
+    
+    h1{
+      justify-self: center;
+    }
+  }
 
   > * {
     grid-column: 2;
@@ -21,11 +48,11 @@ form {
   div {
     display: flex;
     flex-direction: column;
-    max-width: 200px;
+    max-width: 300px;
 
   label {
     span {
-      color: rgb(139, 138, 138);
+      color: var(--grey-bg);
     }
   }
 }
@@ -38,40 +65,42 @@ button {
   justify-content: center;
   span {
     padding: 1rem 2rem;
-    color: white;
+    color: var(--white);
   }
   
 }
 .ok {
-  border-radius:0.2rem;
-  background: rgb(212, 255, 212);
-  border:solid 2px rgb(73, 148, 73);
+  border-radius:var( --border-radius);
+  background: var(--green-bg);
+  border:var(--border) var(--green-outline);
   outline: none;
 }
 .error:focus{
-  border-radius:0.2rem;
-  background-color: #fceeee;
-  border:solid 2px #E53935;
+  border-radius:var( --border-radius);
+  background-color: var(--red-bg);
+  border:var(--border) var(--red-outline);
   outline: none;
 }
 
 nav {
   height: 3rem;
   padding-inline: 1rem;
-  background-color: gray;
+  background-color: var(--grey-bg);
   display: flex;
   justify-content: space-between;
   align-items: center;
   
   ul.menu{
+    display: flex;
+    gap: 2rem;
     li:hover{
       text-decoration: underline;
       text-decoration-thickness: 2px;
       text-underline-offset: 5px;
-      color: rgb(26, 25, 25);
+      color: var(--black);
 
       a:hover{
-        color: rgb(26, 25, 25);
+        color: var(--black);
       }
     }
   }
@@ -88,21 +117,21 @@ nav {
       max-width: 100px;
       height: 30px;
 
-      border-radius: 0.2rem;
-      background-color: rgb(59, 59, 59);
+      border-radius:var( --border-radius);
+      background-color: var(--grey-bg);
 
       display: grid;
       justify-content: center;
       align-items: center;
     }
     .button:hover{
-      background-color: rgb(99, 98, 98);
-      border: solid 2px rgb(26, 25, 25);
+      background-color: var(--dark-grey-bg);
+      border: var(--border-lighter) var(--black);
     }
   }
   
     a {
-      color: white;
+      color: var(--white);
       text-decoration: none;
     }
   
@@ -120,7 +149,8 @@ nav {
 
 .travel_card{
   padding: 1rem;
-  border: solid 2px red;
+  border-radius: 0.2rem;
+  border: var(--border) var(--red-outline);
 
   div{
     display: flex;
@@ -133,5 +163,5 @@ nav {
 
 footer {
   height: 3rem;
-  background-color: gray;
+  background-color: var(--grey-bg);
 }
