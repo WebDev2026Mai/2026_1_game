@@ -3,7 +3,7 @@
 <main>
     <h1>Update Travel</h1>
     <div id="travels-{{travel.travel_pk}}">
-        <form mix-post="/api_update_travel" autocomplete="off" id="form_update_travel">
+        <form mix-patch="/api_update_travel/{{travel.travel_pk}}" autocomplete="off" id="form_update_travel">
             <div>
                 <label> Title <span> {{x.TRAVEL_TITLE_MIN}} to {{x.TRAVEL_TITLE_MAX}} characters</span> </label>
                 <input  type="text" aria-label="travel title" placeholder="{{travel.travel_title}}" id="travel_title" name="travel_title"  mix-validate="{{x.REGEX_TRAVEL_TITLE}}" >

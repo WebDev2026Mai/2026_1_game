@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mariadb
--- Generation Time: Mar 07, 2026 at 08:21 AM
+-- Generation Time: Mar 11, 2026 at 06:12 PM
 -- Server version: 10.6.20-MariaDB-ubu2004
 -- PHP Version: 8.3.26
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `2026_1_game`
 --
-CREATE DATABASE IF NOT EXISTS `2026_1_game` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `2026_1_game`;
 
 -- --------------------------------------------------------
 
@@ -31,13 +29,25 @@ USE `2026_1_game`;
 
 CREATE TABLE `travels` (
   `travel_pk` char(32) NOT NULL,
-  `travel_title` varchar(20) NOT NULL,
+  `travel_title` varchar(100) NOT NULL,
   `travel_date_from` bigint(20) NOT NULL,
   `travel_date_to` bigint(20) NOT NULL,
   `travel_description` varchar(500) NOT NULL,
   `travel_location` varchar(100) NOT NULL,
-  `travel_country` varchar(100) NOT NULL
+  `travel_country` varchar(100) NOT NULL,
+  `travel_created_at` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `travels`
+--
+
+INSERT INTO `travels` (`travel_pk`, `travel_title`, `travel_date_from`, `travel_date_to`, `travel_description`, `travel_location`, `travel_country`, `travel_created_at`) VALUES
+('159ff391ebb04e2e959ec51aa9271b5b', 'aaaa', 1773342720, 1773861120, 'aaaa', 'aaaa', 'aaaa', 1773252742),
+('8a78b3c680664eb39c0d3559634c485f', 'bbbbb', 1773244320, 1773935520, 'bbbbb', 'bbbbbbbbbbbbbb', 'bbbbbbbbbbbbbbbbbbbb', 1773154379),
+('b4c6d8543e5043cc8087958cbf61e7e2', 'aaaa', 1773244320, 1773244320, 'aaaa', 'aaaa', 'aaaa', 1773154361),
+('bfd87dcb37d64ae1b38962f57749926b', 'aaaa', 1773947280, 1778180880, 'aaaa', 'aaaa', 'aaaa', 1773252620),
+('db209e250521407db66a1ff1e9539eae', 'aaaa', 1773342480, 1773342480, 'aaaa', 'aaaa', 'aaaa', 1773252495);
 
 -- --------------------------------------------------------
 
@@ -59,6 +69,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_pk`, `user_first_name`, `user_last_name`, `user_email`, `user_password`, `user_created_at`) VALUES
+('763747350ae94504b4b99a8a8b6368b5', 'bb', 'bb', 'bb@b.com', 'scrypt:32768:8:1$Ekn54sZEBMmFsd2w$392f47300a616027b5b99853944aa0bb33777eff3115803f9308dbeb346aa73e25ac0e60639c687e0606ed59860e4b7bc6d196ad65ed7c0ac7c7b814dad1d1d3', 1773252266),
 ('8fcf604be3794825b8fc380fa60a5eaa', 'aa', 'bb', 'aa@a.com', 'scrypt:32768:8:1$L2kz5lr62KVyaXDA$fc36678e2dc4f9f9e09fc742961b27cd6220492320fcaf664fc66ce37bdef2af6d1fe8360753575ffbd4d9cae2046aee0c3387d75a3d84906e25060e67c47b8d', 1772725543);
 
 -- --------------------------------------------------------
