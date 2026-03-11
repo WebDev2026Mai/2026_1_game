@@ -1,11 +1,15 @@
-    <section class="travel_card" id="travels-{{travel.travel_pk}}">
+<section class="travel_card" id="travel-{{travel.travel_pk}}">
         <h1>{{travel.travel_title}}</h1>
         <h2>{{travel.travel_country}}</h2>
         <h3>{{travel.travel_location}}</h3>
         <div>
-        <li><p>{{travel.travel_date_from}}</p></li>
-        <li><p>{{travel.travel_date_to}}</p></li>
+            <li><p>{{travel.travel_date_from}}</p></li>
+            <li><p>{{travel.travel_date_to}}</p></li>
         </div>
         <p>{{travel.travel_description}}</p>
-        <a class="button" href="/updatetravel">UPDATE</a>
+
+        <ul class="buttons">
+            <li><a class="button" href="/">DELETE</a></li>
+            <li><a class="button" href="/updatetravel/{{ travel.travel_pk }}">UPDATE</a></li>
+        </ul>
     </section>

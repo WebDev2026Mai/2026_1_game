@@ -22,7 +22,6 @@ Session(app)
 @app.get("/")
 @x.no_cache
 def show_index():
-    from app import app 
     try:
         user = session.get("user","")
 
@@ -30,9 +29,8 @@ def show_index():
         q = "SELECT * FROM travels"
 
         cursor.execute(q)
-        travels = cursor.fetchall()
-        app.logger.info('travels:%s',travels)
-        return render_template("page_index.html",user=user, x=x, travels=travels)
+        all_travels = cursor.fetchall()
+        return render_template("page_index.html",user=user, x=x, travels=all_travels)
     
     except Exception as ex:
         ic(ex)
@@ -104,13 +102,24 @@ def show_createtravel():
     
 ################################################################################################
 
-@app.get("/updatetravel")
-def show_updatetravel():
+@app.get("/updatetravel/<travel_pk>")
+def show_updatetravel_by_travel_pk(travel_pk):
     try:
-        return render_template("page_updatetravel.html", x=x)
+        db, cursor = x.db()
+        q = "SELECT * FROM travels WHERE travel_pk = %s"
+        cursor.execute(q, (travel_pk,))
+        onetravel = cursor.fetchone()
+        updatetravel_html = render_template("page_updatetravel.html", x=x, travel=onetravel)
+
+        return updatetravel_html
+    
     except Exception as ex:
-        ic(ex)
-        return ("ups ...")
+        ic(ex, flush=True)
+        return "ups ...", 500
+    
+    finally:
+        if "cursor" in locals(): cursor.close()
+        if "db" in locals(): db.close()
 
 
 ################################################################################################
@@ -292,8 +301,108 @@ def api_create_travel():
         return f"""<browser mix-after-begin="#tooltip">{___tip}</browser>""", 500
     
     finally:
-        if "cursor" in locals(): cursor.close() #is "cursor" in the local function then close.
+        if "cursor" in locals(): cursor.close()
         if "db" in locals(): db.close()
 
 
 ################################################################################################
+
+@app.patch("/api-update-travels/<travel_pk>")
+def api_update_travels(travel_pk):
+    # from app import app 
+    try:
+        travel_title = x.validate_travel_title()
+        travel_date_from = x.validate_travel_date_from()
+        travel_date_to = x.validate_travel_date_to()
+        travel_description = x.validate_travel_description()
+        travel_location = x.validate_travel_location()
+        travel_country = x.validate_travel_country()
+
+        parts = []
+        values = []
+
+        # travel_updated_at = int(time.time())
+        # parts.append("travel_updated_at = %s")
+        # values.append(travel_updated_at)
+        app.logger.info('travel_title:%s, travel_date_from:%s,travel_date_to:%s,travel_description:%s,travel_location:%s,travel_country:%s ',travel_title,travel_date_from,travel_date_to,travel_description,travel_location,travel_country)
+        travel_title = travel_title.strip()
+        if travel_title:
+            parts.append("travel_title = %s")
+            values.append(travel_title)
+
+        travel_date_from = travel_date_from.strip()
+        if travel_date_from:
+            parts.append("travel_date_from = %s")
+            values.append(travel_date_from)
+        
+        travel_date_to = travel_date_to.strip()
+        if travel_date_to:
+            parts.append("travel_date_to = %s")
+            values.append(travel_date_to)
+
+        travel_description = travel_description.strip()
+        if travel_description:
+            parts.append("travel_description = %s")
+            values.append(travel_description)
+
+        travel_location = travel_location.strip()
+        if travel_location:
+            parts.append("travel_location = %s")
+            values.append(travel_location)
+
+        travel_country = travel_country.strip()
+        if travel_country:
+            parts.append("travel_country = %s")
+            values.append(travel_country)
+
+        if not travel_title and not travel_date_from and not travel_date_to and not travel_description and not travel_location and not travel_country: return "nothing to update", 400
+        partial_query = ", ".join(parts)
+
+        values.append(travel_pk)
+
+        q = f"""
+            UPDATE travels
+            SET	{partial_query}
+            WHERE travel_pk = %s
+        """
+        
+        db, cursor = x.db()
+        cursor.execute(q, values)
+        db.commit()
+        return """<browser mix-replace=> </browser> """
+
+    except Exception as ex:
+        ic(ex)
+        if "company_exception travel_title" in str(ex):
+            error_message = f"travel title {x.TRAVEL_TITLE_MIN} to {x.TRAVEL_TITLE_MAX} characters"
+            ___tip = render_template("___tip.html", status="error", message=error_message)
+            return f"""<browser mix-before-begin="#tooltip">{___tip}</browser>""", 400
+        
+        if "company_exception travel_date_from" in str(ex):
+            error_message = f"travel date from {x.TRAVEL_DATE_FROM_MIN} to {x.TRAVEL_DATE_FROM_MAX} characters"
+            ___tip = render_template("___tip.html", status="error", message=error_message)
+            return f"""<browser mix-before-begin="#tooltip">{___tip}</browser>""", 400
+        
+        if "company_exception travel_date_to" in str(ex):
+            error_message = f"travel date to {x.TRAVEL_DATE_TO_MIN} to {x.TRAVEL_DATE_TO_MAX} characters"
+            ___tip = render_template("___tip.html", status="error", message=error_message)
+            return f"""<browser mix-before-begin="#tooltip">{___tip}</browser>""", 400
+        
+        if "company_exception travel_description" in str(ex):
+            error_message = f"travel description {x.TRAVEL_DESCRIPTTION_MIN} to {x.TRAVEL_DESCRIPTTION_MAX} characters"
+            ___tip = render_template("___tip.html", status="error", message=error_message)
+            return f"""<browser mix-before-begin="#tooltip">{___tip}</browser>""", 400
+        
+        if "company_exception travel_location" in str(ex):
+            error_message = f"travel location {x.TRAVEL_LOCATION_MIN} to {x.TRAVEL_LOCATION_MAX} characters"
+            ___tip = render_template("___tip.html", status="error", message=error_message)
+            return f"""<browser mix-before-begin="#tooltip">{___tip}</browser>""", 400
+
+        # Worst case
+        error_message = "System under maintenance"
+        ___tip = render_template("___tip.html", status="error", message=error_message)        
+        return f"""<browser mix-after-begin="#tooltip">{___tip}</browser>""", 500
+    
+    finally:
+        if "cursor" in locals(): cursor.close()
+        if "db" in locals(): db.close()

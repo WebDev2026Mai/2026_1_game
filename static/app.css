@@ -15,7 +15,6 @@
   --border:solid 2px;
 }
 
-
 * {
   margin: 0;
   padding: 0;
@@ -45,6 +44,7 @@ form {
   display: grid;
   justify-content: center;
   gap: 1rem;
+
   div {
     display: flex;
     flex-direction: column;
@@ -105,15 +105,14 @@ nav {
     }
   }
   
-  ul.user{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    gap: 1rem;
-    width: 200px;
-    height: 100%;
-  }
   
+}
+ul.buttons{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 1rem;
+  width: 200px;
 }
 #travel_list {
   display: grid;
@@ -139,6 +138,7 @@ nav {
   }
 }
 }
+
 .button{
       max-width: 100px;
       height: 30px;
