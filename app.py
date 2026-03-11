@@ -307,7 +307,7 @@ def api_create_travel():
 
 ################################################################################################
 
-@app.patch("/api-update-travels/<travel_pk>")
+@app.patch("/api-update-travel/<travel_pk>")
 def api_update_travels(travel_pk):
     # from app import app 
     try:
@@ -330,12 +330,12 @@ def api_update_travels(travel_pk):
             parts.append("travel_title = %s")
             values.append(travel_title)
 
-        travel_date_from = travel_date_from.strip()
+        travel_date_from = travel_date_from
         if travel_date_from:
             parts.append("travel_date_from = %s")
             values.append(travel_date_from)
         
-        travel_date_to = travel_date_to.strip()
+        travel_date_to = travel_date_to
         if travel_date_to:
             parts.append("travel_date_to = %s")
             values.append(travel_date_to)
