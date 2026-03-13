@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify, session, redirect   
 import x
 import uuid
 import time, datetime
+from datetime import datetime
 from flask_session import Session
 from werkzeug.security import generate_password_hash # type: ignore
 from werkzeug.security import check_password_hash    # type: ignore
@@ -42,6 +43,16 @@ def show_travellist():
 
         cursor.execute(q)
         all_travels = cursor.fetchall()
+
+        for travel in all_travels:
+            travel["travel_date_from"] = datetime.fromtimestamp(
+                travel["travel_date_from"]
+            ).strftime("%Y-%m-%d %H:%M")
+
+            travel["travel_date_to"] = datetime.fromtimestamp(
+                travel["travel_date_to"]
+            ).strftime("%Y-%m-%d %H:%M")
+
         if not user: return redirect("/login")
         return render_template("page_travellist.html",user=user, x=x, travels=all_travels)
     
@@ -128,7 +139,12 @@ def show_updatetravel_by_travel_pk(travel_pk):
         q = "SELECT * FROM travels WHERE travel_pk = %s"
         cursor.execute(q, (travel_pk,))
         onetravel = cursor.fetchone()
+
+        onetravel["travel_date_from"] = datetime.fromtimestamp(onetravel["travel_date_from"]).strftime("%Y-%m-%dT%H:%M")
+        onetravel["travel_date_to"] = datetime.fromtimestamp(onetravel["travel_date_to"]).strftime("%Y-%m-%dT%H:%M")
+
         updatetravel_html = render_template("page_updatetravel.html",user=user, x=x, travel=onetravel)
+        
         if not user: return redirect("/login")
         return updatetravel_html
     
@@ -341,9 +357,6 @@ def api_update_travels(travel_pk):
         travel_location = x.validate_travel_location()
         travel_country = x.validate_travel_country()
 
-        date_from = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(travel_date_from))
-        date_to = time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(travel_date_to))
-
         parts = []
         values = []
 
@@ -396,33 +409,31 @@ def api_update_travels(travel_pk):
         cursor.execute(q, values)
         db.commit()
 
-        
-
         return """<browser mix-replace="">
-            <div>
-                <label> Title <span> {{x.TRAVEL_TITLE_MIN}} to {{x.TRAVEL_TITLE_MAX}} characters</span> </label>
-                <input  type="text" aria-label="travel title" placeholder="{{travel.travel_title}}" id="travel_title" name="travel_title"  mix-validate="{{x.REGEX_TRAVEL_TITLE}}" >
-            </div>
-            <div>
-                <label> Date from<span> {{x.REGEX_TRAVEL_DATE_FROM}}</span> </label>
-                <input   type="datetime-local" aria-label="travel date from" placeholder={{date_from}} id="travel_date_from"  name="travel_date_from" mix-validate="{{x.REGEX_TRAVEL_DATE_FROM}}">
-            </div>
-            <div>
-                <label> Date to <span> {{x.REGEX_TRAVEL_DATE_TO}}</span> </label>
-                <input   type="datetime-local" aria-label="travel date to"  placeholder={{date_to}}   id="travel_date_to"     name="travel_date_to"      mix-validate="{{x.REGEX_TRAVEL_DATE_TO}}">
-            </div>
-            <div>
-                <label> Description <span>{{x.TRAVEL_DESCRIPTTION_MIN}} to {{x.TRAVEL_DESCRIPTTION_MAX}} characters</span> </label>
-                <input   type="text" aria-label="travel description"  placeholder="{{travel.travel_description}}"  id="travel_description"   name="travel_description" mix-validate="{{x.REGEX_TRAVEL_DESCRIPTTION}}">
-            </div>
-            <div>
-                <label> Location <span> {{x.TRAVEL_LOCATION_MIN}} to {{x.TRAVEL_LOCATION_MAX}} characters</span> </label>
-                <input   type="text" aria-label="travel location"  placeholder="{{travel.travel_location}}"  id="travel_location"   name="travel_location"    mix-validate="{{x.REGEX_TRAVEL_LOCATION}}">
-            </div>
-            <div>
-                <label> Country <span> {{x.TRAVEL_COUNTRY_MIN}} to {{x.TRAVEL_COUNTRY_MAX}} characters</span> </label>
-                <input   type="text" aria-label="travel country"  placeholder="{{travel.travel_country}}"  id="travel_country"   name="travel_country"    mix-validate="{{x.REGEX_TRAVEL_COUNTRY}}">
-            </div>
+                    <div>
+                        <label> Title <span> {{x.TRAVEL_TITLE_MIN}} to {{x.TRAVEL_TITLE_MAX}} characters</span> </label>
+                        <input  type="text" aria-label="travel title" placeholder="{{travel.travel_title}}" id="travel_title" name="travel_title"  mix-validate="{{x.REGEX_TRAVEL_TITLE}}" >
+                    </div>
+                    <div>
+                        <label> Date from<span> {{x.REGEX_TRAVEL_DATE_FROM}}</span> </label>
+                        <input   type="datetime-local" aria-label="travel date from"  id="travel_date_from"  name="travel_date_from" mix-validate="{{x.REGEX_TRAVEL_DATE_FROM}}">
+                    </div>
+                    <div>
+                        <label> Date to <span> {{x.REGEX_TRAVEL_DATE_TO}}</span> </label>
+                        <input   type="datetime-local" aria-label="travel date to"   id="travel_date_to"     name="travel_date_to"      mix-validate="{{x.REGEX_TRAVEL_DATE_TO}}">
+                    </div>
+                    <div>
+                        <label> Description <span>{{x.TRAVEL_DESCRIPTTION_MIN}} to {{x.TRAVEL_DESCRIPTTION_MAX}} characters</span> </label>
+                        <input   type="text" aria-label="travel description"  placeholder="{{travel.travel_description}}"  id="travel_description"   name="travel_description" mix-validate="{{x.REGEX_TRAVEL_DESCRIPTTION}}">
+                    </div>
+                    <div>
+                        <label> Location <span> {{x.TRAVEL_LOCATION_MIN}} to {{x.TRAVEL_LOCATION_MAX}} characters</span> </label>
+                        <input   type="text" aria-label="travel location"  placeholder="{{travel.travel_location}}"  id="travel_location"   name="travel_location"    mix-validate="{{x.REGEX_TRAVEL_LOCATION}}">
+                    </div>
+                    <div>
+                        <label> Country <span> {{x.TRAVEL_COUNTRY_MIN}} to {{x.TRAVEL_COUNTRY_MAX}} characters</span> </label>
+                        <input   type="text" aria-label="travel country"  placeholder="{{travel.travel_country}}"  id="travel_country"   name="travel_country"    mix-validate="{{x.REGEX_TRAVEL_COUNTRY}}">
+                    </div>
             </browser> """, 200
 
     except Exception as ex:
