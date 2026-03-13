@@ -128,8 +128,6 @@ def validate_travel_date_to():
     dt = datetime.strptime(travel_date_to, "%Y-%m-%dT%H:%M")
     travel_date_to_epoch = int(dt.timestamp())   
 
-    
-    
     if not re.match(REGEX_DATE,travel_date_to):
             raise Exception("company_exception in travel_date_to")
     if travel_date_to_epoch < TRAVEL_DATE_TO_MIN:
@@ -175,3 +173,6 @@ def validate_travel_country():
     if not re.match(REGEX_TRAVEL_COUNTRY,travel_country):
         raise Exception("company_exception in travel_country")
     return travel_country
+
+
+##############################################################################################

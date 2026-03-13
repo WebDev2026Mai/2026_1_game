@@ -1,0 +1,10 @@
+{% include "_header.html" %}
+<main>
+<section id="travel_list">
+    <h1>Travel Destination</h1>
+    {% for travel in travels %}
+        {% include "___travel_card.html" %}
+    {% endfor %}
+</section>
+</main>
+{% include "_footer.html" %}

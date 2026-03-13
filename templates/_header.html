@@ -5,24 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="/static/app.css" />
-    
   </head>
   <body>
     <header>
       <nav>
-        <ul class="menu">
-          <li><a href="/">TRAVEL DESTINATIONS</a></li>
+          {% if not user %}
+          <ul class="menu">
+          <li><a href="/">HOME</a></li>
+          </ul>
+          <ul class="buttons">
+          <li class="button"><a  href="/signup">SIGNUP</a></li>
+          <li class="button"><a  href="/login">LOGIN</a></li>
+          </ul>
+          {% else %}
+          <ul class="menu">
+          <li><a href="/">HOME</a></li>
+          <li><a href="/travellist">TRAVEL LIST</a></li>
           <li><a href="/createtravel">CREATE TRAVEL</a></li>
+          </ul>
+          <ul class="buttons">
+          <li class="button"><a  href="/profile">PROFILE</a></li>
+          <li class="button"><a  href="/logout">LOGOUT</a></li>
         </ul>
-        <ul class="buttons">
-        {% if not user %}
-        <li class="button"><a  href="/signup">SIGNUP</a></li>
-        <li class="button"><a  href="/login">LOGIN</a></li>
-        {% else %}
-        <li class="button"><a  href="/profile">PROFILE</a></li>
-        <li class="button"><a  href="/logout">LOGOUT</a></li>
         {% endif %}
-      </ul>
       </nav>
     </header>
     <div id="tooltip"></div>

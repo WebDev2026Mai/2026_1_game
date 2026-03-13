@@ -5,11 +5,11 @@
     </div>
     <div>
         <label> Date from<span> {{x.REGEX_TRAVEL_DATE_FROM}}</span> </label>
-        <input type="datetime-local" aria-label="travel date from"  id="travel_date_from"  name="travel_date_from" mix-validate="{{x.REGEX_TRAVEL_DATE_FROM}}">
+        <input type="datetime-local" aria-label="travel date from" value={{date_from}}  id="travel_date_from"  name="travel_date_from" mix-validate="{{x.REGEX_TRAVEL_DATE_FROM}}">
     </div>
     <div>
         <label> Date to <span> {{x.REGEX_TRAVEL_DATE_TO}}</span> </label>
-        <input  type="datetime-local" aria-label="travel date to"     id="travel_date_to"     name="travel_date_to"      mix-validate="{{x.REGEX_TRAVEL_DATE_TO}}">
+        <input  type="datetime-local" aria-label="travel date to" value={{date_to}}    id="travel_date_to"     name="travel_date_to"      mix-validate="{{x.REGEX_TRAVEL_DATE_TO}}">
     </div>
     <div>
         <label> Description <span>{{x.TRAVEL_LOCATION_MIN}} to {{x.TRAVEL_LOCATION_MAX}} characters</span> </label>
