@@ -8,8 +8,13 @@
         </div>
         <p>{{travel.travel_description}}</p>
 
-        <ul class="buttons">
-            <li><a class="button" href="/" mix-delete="/travels/{{ travel.travel_pk }}" >DELETE</a></li>
-            <li><a class="button" href="/updatetravel/{{ travel.travel_pk }}">UPDATE</a></li>
-        </ul>
+        <div class="buttons">
+            <button class="button" popovertarget="confirm-{{travel.travel_pk}}">DELETE</button>
+            <a class="button" href="/updatetravel/{{ travel.travel_pk }}">UPDATE</a>
+        </div>
+        <div id="confirm-{{travel.travel_pk}}" popover>
+            <p>Delete this travel?</p>
+            <button class="button" mix-delete="/travels/{{ travel.travel_pk }}">Yes</button>
+            <button class="button" popovertarget="confirm-{{travel.travel_pk}}" popovertargetaction="hide">Cancel</button>
+        </div>
     </section>

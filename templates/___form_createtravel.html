@@ -4,12 +4,12 @@
         <input value="aaaa" type="text" aria-label="travel title" placeholder="Travel title" id="travel_title" name="travel_title"  mix-validate="{{x.REGEX_TRAVEL_TITLE}}" >
     </div>
     <div>
-        <label> Date from<span> {{x.REGEX_TRAVEL_DATE_FROM}}</span> </label>
-        <input  value="2026-03-30 14:24" type="datetime-local" aria-label="travel date from" id="travel_date_from"  name="travel_date_from" mix-validate="{{x.REGEX_TRAVEL_DATE_FROM}}">
+        <label> Date from<span> choose dates between {{x.DATE_FROM_MIN}} and  {{x.DATE_FROM_MAX}}</span> </label>
+        <input  value="2026-03-20 14:24" type="datetime-local" aria-label="travel date from" id="travel_date_from"  name="travel_date_from" mix-validate="{{x.REGEX_TRAVEL_DATE_FROM}}" min="{{x.DATE_FROM_MIN}}" max="{{x.DATE_FROM_MAX}}">
     </div>
     <div>
-        <label> Date to <span> {{x.REGEX_TRAVEL_DATE_TO}}</span> </label>
-        <input  value="2026-03-20 13:24" type="datetime-local" aria-label="travel date to"  id="travel_date_to"     name="travel_date_to"      mix-validate="{{x.REGEX_TRAVEL_DATE_TO}}">
+        <label> Date to <span> choose dates between {{x.DATE_TO_MIN}} and  {{x.DATE_TO_MAX}}</span> </label>
+        <input  value="2026-03-30 13:24" type="datetime-local" aria-label="travel date to"  id="travel_date_to"     name="travel_date_to"      mix-validate="{{x.REGEX_TRAVEL_DATE_TO}}" min="{{x.DATE_TO_MIN}}" max="{{x.DATE_TO_MAX}}">
     </div>
     <div>
         <label> Description <span>{{x.TRAVEL_LOCATION_MIN}} to {{x.TRAVEL_LOCATION_MAX}} characters</span> </label>
@@ -23,5 +23,5 @@
         <label> Country <span> {{x.TRAVEL_DESCRIPTTION_MIN}} to {{x.TRAVEL_DESCRIPTTION_MAX}} characters</span> </label>
         <input value="aaaa" type="text" aria-label="travel country"  placeholder="Travel country"  id="travel_country"   name="travel_country"    mix-validate="{{x.REGEX_TRAVEL_COUNTRY}}">
     </div>
-    <button id="createtravel">CREATE</button>
+    <button class="button">CREATE</button>
 </form>

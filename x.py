@@ -96,11 +96,14 @@ def validate_travel_title():
 #################################################################################
 
 REGEX_DATE = r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$"
+TRAVEL_DATE_FROM_MIN = int(time.time()) #Makes Epoch time
+TRAVEL_DATE_FROM_MAX = int((datetime.now() + timedelta(days=90)).replace(hour=23, minute=59, second=59, microsecond=0).timestamp())
+
+DATE_FROM_MIN= datetime.fromtimestamp(TRAVEL_DATE_FROM_MIN).strftime("%Y-%m-%dT%H:%M")
+DATE_FROM_MAX= datetime.fromtimestamp(TRAVEL_DATE_FROM_MAX).strftime("%Y-%m-%dT%H:%M")
 
 def validate_travel_date_from():
     # from app import app                                                # Reformat the datetime into another string format
-    TRAVEL_DATE_FROM_MIN = int(time.time()) #Makes Epoch time
-    TRAVEL_DATE_FROM_MAX = int((datetime.now() + timedelta(days=90)).replace(hour=23, minute=59, second=59, microsecond=0).timestamp())
 
     travel_date_from = request.form.get("travel_date_from", "")        # Get form input data
     dt = datetime.strptime(travel_date_from, "%Y-%m-%dT%H:%M")         # Convert the string into a datetime object, should have with hours and min.
@@ -120,10 +123,13 @@ def validate_travel_date_from():
 
 
 #################################################################################
+TRAVEL_DATE_TO_MIN = int(time.time()) 
+TRAVEL_DATE_TO_MAX = int((datetime.now() + timedelta(days=90)).replace(hour=23, minute=59, second=59, microsecond=0).timestamp())
+
+DATE_TO_MIN= datetime.fromtimestamp(TRAVEL_DATE_TO_MIN).strftime("%Y-%m-%dT%H:%M")
+DATE_TO_MAX= datetime.fromtimestamp(TRAVEL_DATE_TO_MAX).strftime("%Y-%m-%dT%H:%M")
 
 def validate_travel_date_to():
-    TRAVEL_DATE_TO_MIN = int(time.time()) 
-    TRAVEL_DATE_TO_MAX = int((datetime.now() + timedelta(days=90)).replace(hour=23, minute=59, second=59, microsecond=0).timestamp())
     travel_date_to = request.form.get("travel_date_to", "")
     dt = datetime.strptime(travel_date_to, "%Y-%m-%dT%H:%M")
     travel_date_to_epoch = int(dt.timestamp())   

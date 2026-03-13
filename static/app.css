@@ -50,11 +50,10 @@ form {
     flex-direction: column;
     max-width: 300px;
 
-  label {
-    span {
+    p {
       color: var(--grey-bg);
     }
-  }
+  
 }
 button {
   max-width: 200px;
@@ -104,16 +103,8 @@ nav {
       }
     }
   }
-  
-  
 }
-ul.buttons{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 1rem;
-  width: 200px;
-}
+
 #travel_list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -129,20 +120,20 @@ ul.buttons{
   padding: 1rem;
   border-radius: 0.2rem;
   border: var(--border) var(--red-outline);
-
-  div{
-    display: flex;
-    flex-direction: row;
+}
+}
+.buttons{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
     gap: 1rem;
-
-  }
-}
-}
+    width: 200px;
 
 .button{
       max-width: 100px;
       height: 30px;
 
+      border:none;
       border-radius:var( --border-radius);
       background-color: var(--grey-bg);
 
@@ -153,7 +144,8 @@ ul.buttons{
     .button:hover{
       background-color: var(--dark-grey-bg);
       border: var(--border-lighter) var(--black);
-    }
+    } 
+  }
     a {
       color: var(--white);
       text-decoration: none;
@@ -166,3 +158,52 @@ footer {
 
 
 
+@layer components.popover{
+  [popover] {
+    &, &::backdrop {
+      transition: display .5s allow-discrete, overlay .5s allow-discrete, opacity .5s ease,transform .5s ease;
+
+      /* Exit Stage To */
+      opacity: 0;
+    }
+    
+    &::backdrop {
+      background: black;
+    }
+    
+    /* On Stage */
+    &:popover-open {
+      opacity: 1;
+
+      width: 300px;
+      height: 250px;
+
+      justify-self: center;
+      align-self: center;
+
+      p {
+        grid-column: 1/-1;
+        justify-self: center;
+      }
+      button {
+        justify-self: center;
+      }
+
+      &::backdrop {
+        opacity: 0.5;
+      }
+    }
+    
+    /* Enter Stage From */
+    @starting-style {
+      &:popover-open,
+      &:popover-open::backdrop {
+        opacity: 0;
+      }
+      
+      &:popover-open {
+        transform: translateY(10px);
+      }
+    }
+  }
+}
