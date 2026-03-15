@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: mariadb
--- Generation Time: Mar 11, 2026 at 06:12 PM
+-- Generation Time: Mar 15, 2026 at 01:08 PM
 -- Server version: 10.6.20-MariaDB-ubu2004
 -- PHP Version: 8.3.26
 
@@ -35,19 +35,23 @@ CREATE TABLE `travels` (
   `travel_description` varchar(500) NOT NULL,
   `travel_location` varchar(100) NOT NULL,
   `travel_country` varchar(100) NOT NULL,
-  `travel_created_at` bigint(20) NOT NULL
+  `travel_created_at` bigint(20) NOT NULL,
+  `travel_updated_at` bigint(32) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `travels`
 --
 
-INSERT INTO `travels` (`travel_pk`, `travel_title`, `travel_date_from`, `travel_date_to`, `travel_description`, `travel_location`, `travel_country`, `travel_created_at`) VALUES
-('159ff391ebb04e2e959ec51aa9271b5b', 'aaaa', 1773342720, 1773861120, 'aaaa', 'aaaa', 'aaaa', 1773252742),
-('8a78b3c680664eb39c0d3559634c485f', 'bbbbb', 1773244320, 1773935520, 'bbbbb', 'bbbbbbbbbbbbbb', 'bbbbbbbbbbbbbbbbbbbb', 1773154379),
-('b4c6d8543e5043cc8087958cbf61e7e2', 'aaaa', 1773244320, 1773244320, 'aaaa', 'aaaa', 'aaaa', 1773154361),
-('bfd87dcb37d64ae1b38962f57749926b', 'aaaa', 1773947280, 1778180880, 'aaaa', 'aaaa', 'aaaa', 1773252620),
-('db209e250521407db66a1ff1e9539eae', 'aaaa', 1773342480, 1773342480, 'aaaa', 'aaaa', 'aaaa', 1773252495);
+INSERT INTO `travels` (`travel_pk`, `travel_title`, `travel_date_from`, `travel_date_to`, `travel_description`, `travel_location`, `travel_country`, `travel_created_at`, `travel_updated_at`) VALUES
+('334d2c6d82a14d19b541cf7a8c3c25d6', 'bb', 1774016640, 1774877040, 'aaaa', 'aaaa', 'aaaa', 1773401414, 1773401414),
+('40dfd695eba343fca72ab6c1d3908ce9', 'hh', 1774016640, 1774877040, 'aaaa', 'aaaa', 'aaaa', 1773401442, 1773401442),
+('506d9380b92142618f1472219ecb9612', 'ff', 1774016640, 1774877040, 'aaaa', 'aaaa', 'aaaa', 1773401436, 1773401436),
+('53eb2f40f8084d41978f2008bfe42503', 'ee', 1774016640, 1774877040, 'aaaa', 'aaaa', 'aaaa', 1773401425, 1773401425),
+('7ed3022772fa493596253523434e3664', 'cc', 1774016640, 1774877040, 'aaaa', 'aaaa', 'aaaa', 1773401418, 1773401418),
+('9dadda0752fd42b3a65d1d7cfe39775e', 'dd', 1774016640, 1774877040, 'aaaa', 'aaaa', 'aaaa', 1773401422, 1773401422),
+('e12fbc70d21a48d7988a6e21a1e6e4fb', 'ee', 1774016640, 1774877040, 'aaaa', 'aaaa', 'aaaa', 1773401429, 1773401429),
+('e3e9a67ac95e4cdb8f5bec71cc45eb69', 'gg', 1774016640, 1774877040, 'aaaa', 'aaaa', 'aaaa', 1773401439, 1773401439);
 
 -- --------------------------------------------------------
 
