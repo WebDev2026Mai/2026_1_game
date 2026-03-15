@@ -6,7 +6,7 @@
     </div>
     <div>
         <label> Last name </label>
-        <p><span id="USER_FIRST_NAME_MIN">{{x.USER_LAST_NAME_MIN}}</span>  to <span id="USER_FIRST_NAME_MAX">{{x.USER_LAST_NAME_MAX}}</span> characters</p>
+        <p><span id="USER_LAST_NAME_MIN">{{x.USER_LAST_NAME_MIN}}</span> to <span id="USER_LAST_NAME_MAX">{{x.USER_LAST_NAME_MAX}}</span> characters</p>
         <input type="text" aria-label="user lastname"  placeholder="user lastname"  id="user_last_name"  name="user_last_name"   mix-validate="{{x.REGEX_USER_LAST_NAME}}">
     </div>
     <div>
@@ -15,8 +15,8 @@
     </div>
     <div>
         <label> Password </label>
-        <p><span id="USER_FIRST_NAME_MIN">{{x.USER_PASSWORD_MIN}}</span>  to <span id="USER_FIRST_NAME_MAX">{{x.USER_PASSWORD_MAX}}</span> characters</p>
-        <input type="text" aria-label="user password"  placeholder="user password"  id="user_password"   name="user_password"    mix-validate="{{x.REGEX_USER_PASSWORD}}">
+        <p><span id="USER_PASSWORD_MIN">{{x.USER_PASSWORD_MIN}}</span>  to <span id="USER_PASSWORD_MAX">{{x.USER_PASSWORD_MAX}}</span> characters</p>
+        <input type="password" aria-label="user password"  placeholder="user password"  id="user_password"   name="user_password"    mix-validate="{{x.REGEX_USER_PASSWORD}}">
     </div>
     <button id="signup">SIGNUP</button>
 </form>

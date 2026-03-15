@@ -24,10 +24,10 @@
 body {
   display: grid;
   grid-template-columns: minmax(2rem, 2fr) minmax(0, 1200px) minmax(2rem, 2fr);
-  
+  container-type: inline-size;
+
   main{
     padding-block: 2rem;
-    display: grid;
     
     h1{
       justify-self: center;
@@ -35,9 +35,41 @@ body {
   }
 
   > * {
-    grid-column: 2;
+    grid-column: 2/3;
   }
 }
+@container (min-width : 600px){
+ main{
+   display: grid;
+   grid-template-columns: repeat(2,1fr);
+}
+}
+@container (min-width : 800px){
+main{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+}
+}
+
+#travel_list {
+grid-column: 1/-1;
+display: grid;
+grid-template-columns: subgrid;
+justify-content: space-around;
+gap: 1rem;
+
+h1{
+  grid-column:1/-1;
+  justify-self: center;
+}
+
+.travel_card{
+padding: 1rem;
+border-radius: 0.2rem;
+border: var(--border) var(--red-outline);
+}
+}
+
 form {
   padding-block: 2rem;
   padding-inline: 1rem;
@@ -105,23 +137,7 @@ nav {
   }
 }
 
-#travel_list {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-content: space-around;
-  gap: 1rem;
 
-  h1{
-    grid-column:1/-1;
-    justify-self: center;
-  }
-
-.travel_card{
-  padding: 1rem;
-  border-radius: 0.2rem;
-  border: var(--border) var(--red-outline);
-}
-}
 .buttons{
     display: grid;
     grid-template-columns: 1fr 1fr;

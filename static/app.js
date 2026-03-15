@@ -6,14 +6,14 @@ const user_first_name = document.getElementById("user_first_name");
 const user_last_name = document.getElementById("user_last_name");
 const user_password = document.getElementById("user_password");
 
-const USER_FIRST_NAME_MIN = document.getElementById("USER_FIRST_NAME_MIN").textContent
-const USER_FIRST_NAME_MAX = document.getElementById("USER_FIRST_NAME_MAX").textContent
+const USER_FIRST_NAME_MIN = document.getElementById("USER_FIRST_NAME_MIN")?.textContent
+const USER_FIRST_NAME_MAX = document.getElementById("USER_FIRST_NAME_MAX")?.textContent
 
-const USER_LAST_NAME_MIN = document.getElementById("USER_LAST_NAME_MIN").textContent
-const USER_LAST_NAME_MAX = document.getElementById("USER_LAST_NAME_MAX").textContent
+const USER_LAST_NAME_MIN = document.getElementById("USER_LAST_NAME_MIN")?.textContent
+const USER_LAST_NAME_MAX = document.getElementById("USER_LAST_NAME_MAX")?.textContent
 
-const USER_PASSWORD_MIN = document.getElementById("USER_PASSWORD_MIN").textContent
-const USER_PASSWORD_MAX = document.getElementById("USER_PASSWORD_MAX").textContent
+const USER_PASSWORD_MIN = document.getElementById("USER_PASSWORD_MIN")?.textContent
+const USER_PASSWORD_MAX = document.getElementById("USER_PASSWORD_MAX")?.textContent
 
 user_first_name?.addEventListener("input", ()=>{
     if (user_first_name.value.length < USER_FIRST_NAME_MIN) {
@@ -68,20 +68,21 @@ const travel_country = document.getElementById("travel_country");
 const travel_date_from = document.getElementById("travel_date_from");
 const travel_date_to = document.getElementById("travel_date_to");
 
-const TRAVEL_TITLE_MIN = document.getElementById("TRAVEL_TITLE_MIN").textContent
-const TRAVEL_TITLE_MAX = document.getElementById("TRAVEL_TITLE_MAX").textContent
+const TRAVEL_TITLE_MIN = document.getElementById("TRAVEL_TITLE_MIN")?.textContent
+const TRAVEL_TITLE_MAX = document.getElementById("TRAVEL_TITLE_MAX")?.textContent
 
-const TRAVEL_DESCRIPTTION_MIN = document.getElementById("TRAVEL_TITLE_MIN").textContent
-const TRAVEL_DESCRIPTTION_MAX = document.getElementById("TRAVEL_TITLE_MAX").textContent
+const TRAVEL_DESCRIPTTION_MIN = document.getElementById("TRAVEL_DESCRIPTTION_MIN")?.textContent
+const TRAVEL_DESCRIPTTION_MAX = document.getElementById("TRAVEL_DESCRIPTTION_MAX")?.textContent
 
-const TRAVEL_LOCATION_MIN = document.getElementById("TRAVEL_TITLE_MIN").textContent
-const TRAVEL_LOCATION_MAX = document.getElementById("TRAVEL_TITLE_MAX").textContent
+const TRAVEL_LOCATION_MIN = document.getElementById("TRAVEL_LOCATION_MIN")?.textContent
+const TRAVEL_LOCATION_MAX = document.getElementById("TRAVEL_LOCATION_MAX")?.textContent
 
-const TRAVEL_COUNTRY_MIN = document.getElementById("TRAVEL_TITLE_MIN").textContent
-const TRAVEL_COUNTRY_MAX = document.getElementById("TRAVEL_TITLE_MAX").textContent
+const TRAVEL_COUNTRY_MIN = document.getElementById("TRAVEL_COUNTRY_MIN")?.textContent
+const TRAVEL_COUNTRY_MAX = document.getElementById("TRAVEL_COUNTRY_MAX")?.textContent
 
 
 travel_title?.addEventListener("input", ()=>{
+    console.log("her",TRAVEL_TITLE_MIN)
     if (travel_title.value.length < TRAVEL_TITLE_MIN) {
         travel_title.classList = ""
         travel_title.classList.add("error")
@@ -132,4 +133,4 @@ travel_country?.addEventListener("input", ()=>{
     }
 })
 
-})
+ })

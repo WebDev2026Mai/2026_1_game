@@ -102,6 +102,9 @@ TRAVEL_DATE_FROM_MAX = int((datetime.now() + timedelta(days=90)).replace(hour=23
 DATE_FROM_MIN= datetime.fromtimestamp(TRAVEL_DATE_FROM_MIN).strftime("%Y-%m-%dT%H:%M")
 DATE_FROM_MAX= datetime.fromtimestamp(TRAVEL_DATE_FROM_MAX).strftime("%Y-%m-%dT%H:%M")
 
+SHOW_DATE_FROM_MIN= datetime.fromtimestamp(TRAVEL_DATE_FROM_MIN).strftime("%Y-%m-%d")
+SHOW_DATE_FROM_MAX= datetime.fromtimestamp(TRAVEL_DATE_FROM_MAX).strftime("%Y-%m-%d")
+
 def validate_travel_date_from():
     # from app import app                                                # Reformat the datetime into another string format
 
@@ -128,6 +131,9 @@ TRAVEL_DATE_TO_MAX = int((datetime.now() + timedelta(days=90)).replace(hour=23, 
 
 DATE_TO_MIN= datetime.fromtimestamp(TRAVEL_DATE_TO_MIN).strftime("%Y-%m-%dT%H:%M")
 DATE_TO_MAX= datetime.fromtimestamp(TRAVEL_DATE_TO_MAX).strftime("%Y-%m-%dT%H:%M")
+
+SHOW_DATE_TO_MIN= datetime.fromtimestamp(TRAVEL_DATE_TO_MIN).strftime("%Y-%m-%d")
+SHOW_DATE_TO_MAX= datetime.fromtimestamp(TRAVEL_DATE_TO_MAX).strftime("%Y-%m-%d")
 
 def validate_travel_date_to():
     travel_date_to = request.form.get("travel_date_to", "")
