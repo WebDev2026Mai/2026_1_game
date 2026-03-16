@@ -321,7 +321,7 @@ def api_create_travel():
             return f"""<browser mix-before-begin="#tooltip">{___tip}</browser>""", 400
         
         if "company_exception travel_date_to" in str(ex):
-            error_message = f"travel date to {TRAVEL_DATE_TO_MIN} to {TRAVEL_DATE_TO_MAX} characters"
+            error_message = f"travel date to {x.TRAVEL_DATE_TO_MIN} to {x.TRAVEL_DATE_TO_MAX} characters"
             ___tip = render_template("___tip.html", status="error", message=error_message)
             return f"""<browser mix-before-begin="#tooltip">{___tip}</browser>""", 400
         
